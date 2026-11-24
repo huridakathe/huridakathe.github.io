@@ -3,65 +3,58 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1E4A2A">
+<meta name="theme-color" content="#FFFFFF">
 <title>Hurida Kathe | Trial pack feedback</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --leaf: #1E4A2A;
-    --leaf-2: #2E6B3A;
-    --kraft: #E3CDA4;
-    --kraft-light: #EEDDBE;
-    --kraft-deep: #B8935E;
-    --roast: #3B2414;
-    --roast-soft: #6B4A2E;
-    --chilli: #A8231B;
-    --chilli-dark: #861A14;
-    --turmeric: #E3A51E;
-    --on-leaf: #F5EBD6;
+    --bg: #FFFFFF;
+    --text: #1F1F1F;
+    --muted: #6E6E6E;
+    --line: #EAEAEA;
+    --field: #F7F7F7;
+    --brand: #B3261E;
+    --brand-dark: #8F1D17;
+    --brand-tint: #FCEDEC;
+    --star: #F2B01E;
+    --star-empty: #D6D6D6;
   }
 
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
   body {
     margin: 0;
-    background: var(--leaf);
-    color: var(--roast);
+    background: var(--bg);
+    color: var(--text);
     font-family: "Baloo Tamma 2", system-ui, sans-serif;
     font-size: 17px;
     line-height: 1.45;
   }
-  .wrap { max-width: 460px; margin: 0 auto; }
+  .wrap { max-width: 460px; margin: 0 auto; padding: 0 24px; }
 
   /* Hero */
-  .hero {
-    padding: 40px 22px 26px;
-    color: var(--on-leaf);
-    text-align: center;
-  }
+  .hero { padding: 48px 0 28px; text-align: center; }
   .wordmark {
     margin: 0;
-    font-size: clamp(54px, 17vw, 76px);
+    font-size: clamp(50px, 15vw, 68px);
     font-weight: 800;
     line-height: 1.05;
-    letter-spacing: -0.01em;
+    color: var(--text);
   }
   .wordmark-latin {
     display: block;
     margin-top: 6px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     letter-spacing: 0.04em;
-    color: var(--turmeric);
+    color: var(--brand);
   }
   .hero p {
-    margin: 18px auto 0;
+    margin: 16px auto 0;
     max-width: 30ch;
-    font-size: 17px;
-    color: var(--on-leaf);
-    opacity: 0.92;
+    color: var(--muted);
   }
 
   /* Social buttons */
@@ -69,7 +62,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
-    margin-top: 24px;
+    margin-top: 26px;
   }
   .social a {
     display: flex;
@@ -77,47 +70,34 @@
     align-items: center;
     gap: 4px;
     padding: 12px 6px 10px;
-    border: 1.5px solid rgba(245, 235, 214, 0.35);
     border-radius: 14px;
-    color: var(--on-leaf);
+    background: var(--field);
+    border: 1px solid var(--line);
+    color: var(--text);
     text-decoration: none;
     font-weight: 600;
     font-size: 15px;
-    background: rgba(255, 255, 255, 0.04);
   }
-  .social a:active { background: rgba(255, 255, 255, 0.12); }
-  .social svg { width: 26px; height: 26px; }
-  .social .ig svg { color: #F2A3C4; }
-  .social .fb svg { color: #9EC1F5; }
-  .social .yt svg { color: #F28B82; }
+  .social a:active { background: #EFEFEF; }
+  .social a:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
+  .social svg { width: 24px; height: 24px; }
+  .social .ig svg { color: #D62976; }
+  .social .fb svg { color: #1877F2; }
+  .social .yt svg { color: #E62117; }
 
-  /* Kraft panel with a heat-seal crimp along the top, like the pouch */
-  .panel {
-    position: relative;
-    background: var(--kraft);
-    padding: 34px 22px 30px;
-    border-radius: 6px 6px 0 0;
-  }
-  .panel::before {
-    content: "";
-    position: absolute;
-    left: 0; right: 0; top: 0;
-    height: 14px;
-    border-radius: 6px 6px 0 0;
-    background: repeating-linear-gradient(90deg, var(--kraft-deep) 0 2px, var(--kraft) 2px 6px);
-    opacity: 0.55;
-  }
+  /* Form */
+  .panel { padding: 8px 0 30px; border-top: 1px solid var(--line); }
 
   h2 {
-    margin: 0 0 4px;
+    margin: 28px 0 4px;
     font-size: 26px;
     font-weight: 700;
     line-height: 1.15;
   }
-  .lede { margin: 0 0 22px; color: var(--roast-soft); }
+  .lede { margin: 0 0 14px; color: var(--muted); }
 
   fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
-  .q { margin-top: 28px; }
+  .q { margin-top: 32px; }
   .q > legend, .q > label.qlabel {
     display: block;
     padding: 0;
@@ -126,27 +106,19 @@
     font-weight: 700;
     line-height: 1.25;
   }
-  .hint { display: block; font-size: 15px; font-weight: 500; color: var(--roast-soft); }
+  .hint { display: block; font-size: 15px; font-weight: 500; color: var(--muted); }
 
   /* Product rating rows */
-  .product {
-    padding: 14px 0 10px;
-    box-shadow: inset 0 1px 0 rgba(184, 147, 94, 0.7);
-  }
-  .product:last-child { box-shadow: inset 0 1px 0 rgba(184, 147, 94, 0.7), inset 0 -1px 0 rgba(184, 147, 94, 0.7); }
+  .product { padding: 16px 0 10px; box-shadow: inset 0 -1px 0 var(--line); }
   .product legend {
     float: left;
     width: 100%;
     padding: 0;
     font-size: 18px;
     font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 9px;
   }
-  .swatch { width: 12px; height: 12px; border-radius: 50%; flex: none; }
-  .product .desc { clear: both; margin: 0 0 4px 21px; font-size: 15px; color: var(--roast-soft); }
-  .stars-row { display: flex; align-items: center; gap: 12px; margin-left: 15px; }
+  .product .desc { clear: both; margin: 0 0 2px; font-size: 15px; color: var(--muted); }
+  .stars-row { display: flex; align-items: center; gap: 10px; margin-left: -7px; }
   .stars { display: flex; }
   .stars input { position: absolute; opacity: 0; width: 1px; height: 1px; }
   .stars label {
@@ -156,28 +128,28 @@
     cursor: pointer;
     border-radius: 10px;
   }
-  .stars svg { width: 30px; height: 30px; fill: transparent; stroke: var(--kraft-deep); stroke-width: 1.6; transition: transform .15s ease, fill .15s ease; }
-  .stars label.on svg { fill: var(--turmeric); stroke: #B9800F; }
+  .stars svg { width: 28px; height: 28px; fill: var(--star-empty); transition: transform .15s ease, fill .15s ease; }
+  .stars label.on svg { fill: var(--star); }
   .stars label.pop svg { transform: scale(1.18); }
-  .stars input:focus-visible + label { outline: 3px solid var(--leaf-2); outline-offset: -2px; }
-  .rating-word { font-size: 15px; font-weight: 600; color: var(--roast-soft); min-width: 5.5em; }
+  .stars input:focus-visible + label { outline: 2px solid var(--brand); outline-offset: -2px; }
+  .rating-word { font-size: 15px; font-weight: 600; color: var(--muted); }
 
   /* Choice chips */
   .chips { display: flex; flex-wrap: wrap; gap: 8px; }
   .chip input { position: absolute; opacity: 0; width: 1px; height: 1px; }
   .chip span {
     display: inline-block;
-    padding: 9px 15px 7px;
-    border: 1.5px solid var(--kraft-deep);
+    padding: 9px 16px 7px;
+    border: 1px solid #D9D9D9;
     border-radius: 999px;
-    background: var(--kraft-light);
+    background: var(--bg);
     font-weight: 600;
     font-size: 16px;
     cursor: pointer;
     user-select: none;
   }
-  .chip input:checked + span { background: var(--leaf); border-color: var(--leaf); color: var(--on-leaf); }
-  .chip input:focus-visible + span { outline: 3px solid var(--turmeric); outline-offset: 2px; }
+  .chip input:checked + span { background: var(--brand); border-color: var(--brand); color: #FFFFFF; }
+  .chip input:focus-visible + span { outline: 2px solid var(--brand); outline-offset: 2px; }
 
   /* Text fields */
   .field { margin-top: 14px; }
@@ -185,61 +157,62 @@
   input[type="text"], input[type="tel"], textarea {
     width: 100%;
     padding: 12px 14px 10px;
-    border: 1.5px solid var(--kraft-deep);
-    border-radius: 10px;
-    background: var(--kraft-light);
-    color: var(--roast);
+    border: 1px solid #DADADA;
+    border-radius: 12px;
+    background: var(--field);
+    color: var(--text);
     font: inherit;
     font-size: 17px;
   }
   textarea { min-height: 104px; resize: vertical; }
-  input:focus, textarea:focus { outline: 3px solid var(--turmeric); outline-offset: 1px; border-color: var(--roast-soft); }
-  ::placeholder { color: #9C7E5B; }
+  input:focus, textarea:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px var(--brand-tint); background: var(--bg); }
+  ::placeholder { color: #A3A3A3; }
 
   .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
-  .msg { min-height: 1.4em; margin: 22px 0 10px; font-weight: 600; color: var(--chilli); }
+  .msg { min-height: 1.4em; margin: 24px 0 10px; font-weight: 600; color: var(--brand); }
 
   .send {
     width: 100%;
     height: 56px;
     border: 0;
     border-radius: 14px;
-    background: var(--chilli);
-    color: #FFF4E6;
+    background: var(--brand);
+    color: #FFFFFF;
     font: inherit;
     font-size: 19px;
     font-weight: 700;
     cursor: pointer;
   }
-  .send:active { background: var(--chilli-dark); }
-  .send:focus-visible { outline: 3px solid var(--turmeric); outline-offset: 3px; }
+  .send:active { background: var(--brand-dark); }
+  .send:focus-visible { outline: 2px solid var(--brand); outline-offset: 3px; }
   .send[disabled] { opacity: 0.7; cursor: progress; }
 
   /* Thank-you state */
-  .thanks { display: none; text-align: center; padding: 18px 0 6px; }
+  .thanks { display: none; text-align: center; padding: 40px 0 10px; }
   .thanks.show { display: block; }
-  .thanks .big { font-size: 44px; font-weight: 800; line-height: 1; color: var(--leaf); margin: 0; }
-  .thanks p { margin: 14px auto 0; max-width: 30ch; }
+  .thanks .big { font-size: 40px; font-weight: 800; line-height: 1; margin: 0; }
+  .thanks p { margin: 14px auto 0; max-width: 30ch; color: var(--muted); }
+  .thanks p.big { color: var(--text); }
   .again {
-    margin-top: 22px;
-    background: none;
-    border: 1.5px solid var(--roast-soft);
+    margin-top: 24px;
+    background: var(--bg);
+    border: 1px solid #D9D9D9;
     border-radius: 999px;
     padding: 10px 20px 8px;
     font: inherit;
     font-weight: 600;
-    color: var(--roast);
+    color: var(--text);
     cursor: pointer;
   }
-  .again:focus-visible { outline: 3px solid var(--turmeric); outline-offset: 2px; }
+  .again:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
 
   footer {
-    padding: 22px 22px calc(26px + env(safe-area-inset-bottom));
+    padding: 22px 0 calc(28px + env(safe-area-inset-bottom));
+    border-top: 1px solid var(--line);
     text-align: center;
-    color: var(--on-leaf);
+    color: var(--muted);
     font-size: 15px;
-    opacity: 0.85;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -278,17 +251,17 @@
 
       <div class="products">
         <fieldset class="product" data-key="kandi">
-          <legend><span class="swatch" style="background:#A0522D"></span>Kandi Podi</legend>
+          <legend>Kandi Podi</legend>
           <p class="desc">Roasted lentil podi</p>
           <div class="stars-row"><div class="stars"></div><span class="rating-word" aria-live="polite"></span></div>
         </fieldset>
         <fieldset class="product" data-key="garlic">
-          <legend><span class="swatch" style="background:#C98A2B"></span>Crispy Garlic Chutney Powder</legend>
+          <legend>Crispy Garlic Chutney Powder</legend>
           <p class="desc">Garlic and dry coconut</p>
           <div class="stars-row"><div class="stars"></div><span class="rating-word" aria-live="polite"></span></div>
         </fieldset>
         <fieldset class="product" data-key="ellu">
-          <legend><span class="swatch" style="background:#8C7A5B"></span>Ellu-Kobbari Chutney Powder</legend>
+          <legend>Ellu-Kobbari Chutney Powder</legend>
           <p class="desc">Sesame and coconut</p>
           <div class="stars-row"><div class="stars"></div><span class="rating-word" aria-live="polite"></span></div>
         </fieldset>
