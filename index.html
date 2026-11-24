@@ -339,6 +339,7 @@
         <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
       </div>
 
+      <p class="consent">To keep the results fair, we note basic device details like phone model with each feedback. No location is collected.</p>
       <p class="msg" id="msg" role="alert"></p>
       <button class="send" id="send" type="submit">Send feedback</button>
     </form>
@@ -481,6 +482,53 @@
     return s;
   }
 
+  /* Basic device details, saved with each feedback so repeats from one phone can be spotted (no location) */
+  async function deviceInfo() {
+    const ua = navigator.userAgent || "";
+    let model = "";
+    let platformVersion = "";
+    try {
+      if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+        const h = await navigator.userAgentData.getHighEntropyValues(["model", "platformVersion"]);
+        model = h.model || "";
+        platformVersion = h.platformVersion || "";
+      }
+    } catch (e) {}
+    if (!model) {
+      if (/iPhone/.test(ua)) model = "iPhone";
+      else if (/iPad/.test(ua)) model = "iPad";
+      else {
+        const m = ua.match(/Android [\d.]+; ([^;)]+)/);
+        if (m && m[1].trim() !== "K") model = m[1].trim();
+      }
+    }
+    let os = "Other";
+    if (/iPhone|iPad/.test(ua)) os = "iOS " + ((ua.match(/OS (\d+(?:_\d+)*)/) || [])[1] || "").replace(/_/g, ".");
+    else if (/Android/.test(ua)) os = "Android " + (platformVersion || (ua.match(/Android ([\d.]+)/) || [])[1] || "");
+    else if (/Mac OS X/.test(ua)) os = "Mac";
+    else if (/Windows/.test(ua)) os = "Windows";
+    const browser =
+      /Instagram/.test(ua) ? "Instagram app" :
+      /FBAN|FBAV/.test(ua) ? "Facebook app" :
+      /WhatsApp/.test(ua) ? "WhatsApp" :
+      /SamsungBrowser/.test(ua) ? "Samsung Internet" :
+      /EdgA?\/|EdgiOS/.test(ua) ? "Edge" :
+      /Firefox|FxiOS/.test(ua) ? "Firefox" :
+      /CriOS|Chrome\//.test(ua) ? "Chrome" :
+      /Safari/.test(ua) ? "Safari" : "Other";
+    let tz = "";
+    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ""; } catch (e) {}
+    return {
+      device: [model, os.trim(), browser].filter(Boolean).join(", "),
+      screen: screen.width + "x" + screen.height + " @" + (window.devicePixelRatio || 1) + "x",
+      lang: navigator.language || "",
+      tz: tz,
+      cores: String(navigator.hardwareConcurrency || ""),
+      mem: String(navigator.deviceMemory || ""),
+      ua: ua.slice(0, 300)
+    };
+  }
+
   function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 
   /* Sends once, waits up to `ms` for the Sheet to confirm */
@@ -549,6 +597,10 @@
     body.append("suggestions", (fd.get("suggestions") || "").trim());
     body.append("website", fd.get("website") || "");
     body.append("subId", currentId);
+    try {
+      const d = await deviceInfo();
+      Object.keys(d).forEach(function (k) { body.append(k, d[k]); });
+    } catch (e) {}
 
     send.disabled = true;
     send.textContent = "Sending...";
