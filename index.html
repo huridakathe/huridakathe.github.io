@@ -78,7 +78,9 @@
     font-weight: 600;
     font-size: 15px;
   }
+  .social a { cursor: pointer; }
   .social a:active { background: #EFEFEF; }
+  .hero p.soon { min-height: 1.4em; margin: 8px auto 0; font-size: 14px; color: var(--muted); }
   .social a:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
   .social svg { width: 24px; height: 24px; }
   .social .ig svg { color: #D62976; }
@@ -242,6 +244,7 @@
         YouTube
       </a>
     </nav>
+    <p class="soon" id="social-soon" aria-live="polite"></p>
   </header>
 
   <main class="panel">
@@ -352,11 +355,23 @@
   };
   /* ===================================================== */
 
-  /* A button stays hidden until its real link is filled in above */
-  [["link-instagram", CONFIG.instagram], ["link-facebook", CONFIG.facebook], ["link-youtube", CONFIG.youtube]].forEach(function (pair) {
-    const a = document.getElementById(pair[0]);
-    if (!pair[1] || pair[1].indexOf("YOUR_") > -1) a.style.display = "none";
-    else a.href = pair[1];
+  /* Buttons always show. Until a real link is filled in above, tapping one says "coming soon" */
+  const soon = document.getElementById("social-soon");
+  let soonTimer;
+  function showSoon(name) {
+    soon.textContent = name + " page coming soon";
+    clearTimeout(soonTimer);
+    soonTimer = setTimeout(function () { soon.textContent = ""; }, 2500);
+  }
+  [["link-instagram", CONFIG.instagram, "Instagram"], ["link-facebook", CONFIG.facebook, "Facebook"], ["link-youtube", CONFIG.youtube, "YouTube"]].forEach(function (item) {
+    const a = document.getElementById(item[0]);
+    if (item[1] && item[1].indexOf("YOUR_") === -1) { a.href = item[1]; return; }
+    a.removeAttribute("href");
+    a.removeAttribute("target");
+    a.setAttribute("role", "button");
+    a.tabIndex = 0;
+    a.addEventListener("click", function () { showSoon(item[2]); });
+    a.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); showSoon(item[2]); } });
   });
 
   const WORDS = ["", "Not for me", "Okay", "Good", "Very good", "Loved it"];
