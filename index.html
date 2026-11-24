@@ -345,16 +345,19 @@
 <script>
   /* ====== YOUR LINKS: change only these four lines ====== */
   const CONFIG = {
-    scriptUrl: "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE",
+    scriptUrl: "https://script.google.com/macros/s/AKfycbxBMMMI7b5ITcwQqmWsvvqz_m7RYrb8E7VTi3FpQPqvSneZA2hQC83pkGI6sLWD6ho7mw/exec",
     instagram: "https://www.instagram.com/YOUR_INSTAGRAM_HANDLE/",
     facebook:  "https://www.facebook.com/YOUR_FACEBOOK_PAGE/",
     youtube:   "https://www.youtube.com/@YOUR_YOUTUBE_CHANNEL"
   };
   /* ===================================================== */
 
-  document.getElementById("link-instagram").href = CONFIG.instagram;
-  document.getElementById("link-facebook").href = CONFIG.facebook;
-  document.getElementById("link-youtube").href = CONFIG.youtube;
+  /* A button stays hidden until its real link is filled in above */
+  [["link-instagram", CONFIG.instagram], ["link-facebook", CONFIG.facebook], ["link-youtube", CONFIG.youtube]].forEach(function (pair) {
+    const a = document.getElementById(pair[0]);
+    if (!pair[1] || pair[1].indexOf("YOUR_") > -1) a.style.display = "none";
+    else a.href = pair[1];
+  });
 
   const WORDS = ["", "Not for me", "Okay", "Good", "Very good", "Loved it"];
   const STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6-4.5-4.2 6.1-.7z" stroke-linejoin="round"/></svg>';
