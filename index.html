@@ -558,7 +558,7 @@
     body.append("price", fd.get("price") || "");
     body.append("suggestions", (fd.get("suggestions") || "").trim());
     body.append("website", fd.get("website") || "");
-    body.append("sid", currentId);
+    body.append("subId", currentId);
 
     send.disabled = true;
     send.textContent = "Sending...";
