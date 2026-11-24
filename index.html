@@ -185,6 +185,7 @@
 
   .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
+  .consent { margin: 8px 0 0; font-size: 14px; color: var(--muted); }
   .field-error { margin: 8px 0 0; font-size: 15px; font-weight: 600; color: var(--brand); }
   .field-error:empty { display: none; }
   .msg { min-height: 1.4em; margin: 24px 0 10px; font-weight: 600; color: var(--brand); }
@@ -212,18 +213,6 @@
   .thanks .big { font-size: 40px; font-weight: 800; line-height: 1; margin: 0; color: var(--text); }
   .thanks p { margin: 14px auto 0; max-width: 30ch; color: var(--muted); }
   .thanks .social { margin-top: 20px; }
-  .again {
-    margin-top: 24px;
-    background: var(--bg);
-    border: 1px solid #D9D9D9;
-    border-radius: 999px;
-    padding: 10px 20px 8px;
-    font: inherit;
-    font-weight: 600;
-    color: var(--text);
-    cursor: pointer;
-  }
-  .again:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
 
   footer {
     padding: 22px 0 calc(28px + env(safe-area-inset-bottom));
@@ -341,6 +330,7 @@
           <label for="phone">WhatsApp number</label>
           <input type="tel" id="phone" name="phone" inputmode="numeric" autocomplete="tel" maxlength="16" placeholder="10-digit mobile number" aria-describedby="err-phone">
           <p class="field-error" id="err-phone" role="alert"></p>
+          <p class="consent">We'll use your number only to message you about our launch and offers. We never share it.</p>
         </div>
       </fieldset>
 
@@ -371,8 +361,7 @@
         </a>
       </nav>
       <p class="soon" aria-live="polite"></p>
-      <p>Shared the pack with family? Each person can send their own feedback.</p>
-      <button class="again" id="again" type="button">Send another feedback</button>
+      <p>Shared the pack with family? They can scan the QR on their own phone.</p>
     </section>
   </main>
 
@@ -568,6 +557,7 @@
     send.textContent = "Send feedback";
 
     if (result === "ok") {
+      markSent();
       const name = (fd.get("name") || "").trim().split(" ")[0];
       document.getElementById("thanks-line").textContent =
         (name ? "Thanks, " + name + ". " : "") + "Your feedback is saved. Follow us to see what we cook up next.";
@@ -583,14 +573,17 @@
     }
   });
 
-  document.getElementById("again").addEventListener("click", function () {
-    form.reset();
-    document.querySelectorAll(".product").forEach(function (fs) { paintStars(fs, false); });
-    msg.textContent = "";
-    thanks.classList.remove("show");
-    form.style.display = "";
-    document.getElementById("products").scrollIntoView({ block: "start" });
-  });
+  /* One feedback per phone: remembered on this phone after a successful save */
+  const SENT_KEY = "hk_feedback_sent";
+  function markSent() { try { localStorage.setItem(SENT_KEY, new Date().toISOString()); } catch (e) {} }
+  function alreadySent() { try { return !!localStorage.getItem(SENT_KEY); } catch (e) { return false; } }
+
+  if (alreadySent()) {
+    form.style.display = "none";
+    document.getElementById("thanks-line").textContent =
+      "You've already sent feedback from this phone. Follow us to see what we cook up next.";
+    thanks.classList.add("show");
+  }
 </script>
 </body>
 </html>
